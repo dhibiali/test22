@@ -1,0 +1,251 @@
+clone:
+  git:
+    image: plugins/git
+    depth: 1
+
+pipeline:
+  check-app-compatbility:
+    image: nextcloudci/php7.0:php7.0-17
+    environment:
+      - APP_NAME=deck
+      - CORE_BRANCH=stable14
+      - DB=sqlite
+    commands:
+      # Pre-setup steps
+      - wget https://raw.githubusercontent.com/nextcloud/travis_ci/master/before_install.sh
+      - bash ./before_install.sh $APP_NAME $CORE_BRANCH $DB
+      - cd ../server
+      # Code checker
+      - ./occ app:check-code $APP_NAME -c strong-comparison
+      - ./occ app:check-code $APP_NAME -c deprecation
+      - cd apps/$APP_NAME/
+    when:
+      matrix:
+        TESTS: check-app-compatbility
+  check-app-compatbility-14:
+    image: nextcloudci/php7.0:php7.0-17
+    environment:
+      - APP_NAME=deck
+      - CORE_BRANCH=stable14
+      - DB=sqlite
+    commands:
+      # Pre-setup steps
+      - wget https://raw.githubusercontent.com/nextcloud/travis_ci/master/before_install.sh
+      - bash ./before_install.sh $APP_NAME $CORE_BRANCH $DB
+      - cd ../server
+      # Code checker
+      - ./occ app:check-code $APP_NAME -c strong-comparison
+      - ./occ app:check-code $APP_NAME -c deprecation
+      - cd apps/$APP_NAME/
+    when:
+      matrix:
+        TESTS: check-app-compatbility-14
+  check-app-compatbility-13:
+    image: nextcloudci/php7.0:php7.0-17
+    environment:
+      - APP_NAME=deck
+      - CORE_BRANCH=stable13
+      - DB=sqlite
+    commands:
+      # Pre-setup steps
+      - wget https://raw.githubusercontent.com/nextcloud/travis_ci/master/before_install.sh
+      - bash ./before_install.sh $APP_NAME $CORE_BRANCH $DB
+      - cd ../server
+      # Code checker
+      - ./occ app:check-code $APP_NAME -c strong-comparison
+      - ./occ app:check-code $APP_NAME -c deprecation
+      - cd apps/$APP_NAME/
+    when:
+      matrix:
+        TESTS: check-app-compatbility-13
+  signed-off-check:
+    image: nextcloudci/php7.0:php7.0-17
+    environment:
+      - APP_NAME=deck
+      - CORE_BRANCH=stable14
+      - DB=sqlite
+    commands:
+      - wget https://raw.githubusercontent.com/nextcloud/server/master/build/signed-off-checker.php
+      - php ./signed-off-checker.php
+    secrets: [ github_token ]
+    when:
+      matrix:
+        TESTS: signed-off-check
+  syntax-php5.6:
+    image: nextcloudci/php5.6:php5.6-8
+    environment:
+      - APP_NAME=deck
+      - CORE_BRANCH=stable13
+      - DB=sqlite
+    commands:
+      - composer install
+      - ./vendor/bin/parallel-lint --exclude ./vendor/ .
+    when:
+      matrix:
+        TESTS: syntax-php5.6
+  syntax-php7.0:
+    image: nextcloudci/php7.0:php7.0-17
+    environment:
+      - APP_NAME=deck
+      - CORE_BRANCH=stable14
+      - DB=sqlite
+    commands:
+      - composer install
+      - ./vendor/bin/parallel-lint --exclude ./vendor/ .
+    when:
+      matrix:
+        TESTS: syntax-php7.0
+  syntax-php7.1:
+    image: nextcloudci/php7.1:php7.1-15
+    environment:
+      - APP_NAME=deck
+      - CORE_BRANCH=stable14
+      - DB=sqlite
+    commands:
+      - composer install
+      - ./vendor/bin/parallel-lint --exclude ./vendor/ .
+    when:
+      matrix:
+        TESTS: syntax-php7.1
+  syntax-php7.2:
+    image: nextcloudci/php7.2:php7.2-9
+    environment:
+      - APP_NAME=deck
+      - CORE_BRANCH=stable14
+      - DB=sqlite
+    commands:
+      - composer install
+      - ./vendor/bin/parallel-lint --exclude ./vendor/ .
+    when:
+      matrix:
+        TESTS: syntax-php7.2
+  php5.6:
+    image: nextcloudci/php5.6:php5.6-8
+    environment:
+      - APP_NAME=deck
+      - CORE_BRANCH=stable13
+      - DB=sqlite
+    commands:
+      - apt update && apt-get -y install php5-xdebug
+
+      # Pre-setup steps
+      - wget https://raw.githubusercontent.com/nextcloud/travis_ci/master/before_install.sh
+      - bash ./before_install.sh $APP_NAME $CORE_BRANCH $DB
+      - cd ../server/
+      - ./occ app:enable $APP_NAME
+      - cd apps/$APP_NAME
+      - composer install
+      - phpunit -c tests/phpunit.xml --coverage-clover build/php-unit.coverage.xml
+      - phpunit -c tests/phpunit.integration.xml --coverage-clover build/php-integration.coverage.xml
+    when:
+      matrix:
+        TESTS: php5.6
+  php7.0:
+    image: nextcloudci/php7.0:php7.0-17
+    environment:
+      - APP_NAME=deck
+      - CORE_BRANCH=stable14
+      - DB=sqlite
+    commands:
+      # Pre-setup steps
+      - wget https://raw.githubusercontent.com/nextcloud/travis_ci/master/before_install.sh
+      - bash ./before_install.sh $APP_NAME $CORE_BRANCH $DB
+      - cd ../server/
+      - php occ app:enable deck
+      - cd apps/$APP_NAME
+      # Run phpunit tests
+      - composer install
+      - phpunit -c tests/phpunit.xml --coverage-clover build/php-unit.coverage.xml
+      - phpunit -c tests/phpunit.integration.xml --coverage-clover build/php-integration.coverage.xml
+    when:
+      matrix:
+        TESTS: php7.0
+  php7.1:
+    image: nextcloudci/php7.1:php7.1-15
+    environment:
+      - APP_NAME=deck
+      - CORE_BRANCH=stable14
+      - DB=sqlite
+    commands:
+      # Pre-setup steps
+      - wget https://raw.githubusercontent.com/nextcloud/travis_ci/master/before_install.sh
+      - bash ./before_install.sh $APP_NAME $CORE_BRANCH $DB
+      - cd ../server/
+      - php occ app:enable deck
+      - cd apps/$APP_NAME
+      - composer install
+      - phpunit -c tests/phpunit.xml --coverage-clover build/php-unit.coverage.xml
+      - phpunit -c tests/phpunit.integration.xml --coverage-clover build/php-integration.coverage.xml
+    when:
+      matrix:
+        TESTS: php7.1
+  php7.2:
+    image: nextcloudci/php7.2:php7.2-9
+    environment:
+      - APP_NAME=deck
+      - CORE_BRANCH=stable14
+      - DB=sqlite
+    commands:
+      # Pre-setup steps
+      - wget https://raw.githubusercontent.com/nextcloud/travis_ci/master/before_install.sh
+      - bash ./before_install.sh $APP_NAME $CORE_BRANCH $DB
+      - cd ../server/
+      - php occ app:enable deck
+      - cd apps/$APP_NAME
+      - composer install
+      - phpunit -c tests/phpunit.xml --coverage-clover build/php-unit.coverage.xml
+      - phpunit -c tests/phpunit.integration.xml --coverage-clover build/php-integration.coverage.xml
+    when:
+      matrix:
+        TESTS: php7.2
+  integration:
+    image: nextcloudci/integration-php7.0:integration-php7.0-6
+    environment:
+      - APP_NAME=deck
+      - CORE_BRANCH=stable14
+      - DB=sqlite
+    commands:
+      # Pre-setup steps
+      - wget https://raw.githubusercontent.com/nextcloud/travis_ci/master/before_install.sh
+      - bash ./before_install.sh $APP_NAME $CORE_BRANCH $DB
+      - cd ../server/
+      - php occ app:enable deck
+      - cd apps/$APP_NAME
+      - cd tests/integration
+      - ./run.sh
+    when:
+      matrix:
+        TESTS: integration
+  eslint:
+    image: nextcloudci/eslint:eslint-1
+    commands:
+      - ./run-eslint.sh
+    when:
+      matrix:
+        TESTS: eslint
+  jsbuild:
+    image: mhart/alpine-node:6.8.0
+    commands:
+      - apk add --no-cache make
+      - make build-js
+    when:
+      matrix:
+        TESTS: jsbuild
+matrix:
+  include:
+    - TESTS: check-app-compatbility-13
+    - TESTS: check-app-compatbility-14
+    - TESTS: signed-off-check
+    - TESTS: syntax-php5.6
+    - TESTS: syntax-php7.0
+    - TESTS: syntax-php7.1
+    - TESTS: syntax-php7.2
+    - TESTS: php5.6
+    - TESTS: php7.0
+    - TESTS: php7.1
+    - TESTS: php7.2
+    - TESTS: eslint
+    - TESTS: jsbuild
+    #- TESTS: integration
+
+branches: [ master, stable* ]

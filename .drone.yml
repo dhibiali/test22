@@ -1,6 +1,4 @@
-
 pipeline:
- pipeline:
   build:
     image: nextcloudci/php7.2:php7.2-9
     commands:

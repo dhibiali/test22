@@ -9,8 +9,9 @@ pipeline:
       - apt-get install -f
       - dpkg -i /tmp/lando-latest.deb 
       - lando version
-    services:
-      - docker
+    
+services:
+  - docker
   
 
 

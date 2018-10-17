@@ -5,7 +5,7 @@ pipeline:
       - apt-get -y update || true
       - apt-get -y install cgroup-bin curl
       - curl -fsSL -o /tmp/lando-latest.deb http://installer.kalabox.io/lando-latest-dev.deb
-      - dpkg -i /tmp/lando-latest.deb -f
+      - dpkg -i /tmp/lando-latest.deb & apt-get install -f
       - lando version
 
 +branches: master

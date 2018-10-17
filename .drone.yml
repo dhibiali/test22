@@ -10,4 +10,9 @@ pipeline:
       - dpkg -i /tmp/lando-latest.deb 
       - lando version
 
+services:
+- name: docker
+  image: docker:dind
+  privileged: true
+
 +branches: master

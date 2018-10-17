@@ -9,9 +9,9 @@ pipeline:
       #- apt-get install -f
       #- dpkg -i /tmp/lando-latest.deb 
       #- lando version
-      - composer --verbose validate
-      - composer --verbose install
-      - drupal list
+      #- composer --verbose validate
+      #- composer --verbose install
+      - ls -l
   slack:
     image: plugins/slack
     channel: drone

@@ -1,6 +1,6 @@
 pipeline:
   build:
-    image: nextcloudci/php7.2:php7.2-9
+    image: plugins/docker
     commands:
       - apt-get -y update || true
       - apt-get -y install cgroup-bin curl
@@ -10,8 +10,8 @@ pipeline:
       - dpkg -i /tmp/lando-latest.deb 
       - lando version
     
-services:
-  - image: docker
+#services:
+#  - image: docker
   
 
 

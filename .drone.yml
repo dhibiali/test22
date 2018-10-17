@@ -12,7 +12,8 @@ pipeline:
       #- composer --verbose validate
       - composer --verbose install
       - cd web
-      - ./../vendor/bin/phpunit -c core --testsuite unit --exclude-group Composer,DependencyInjection,PageCache,Setup
+      #- ./../vendor/bin/phpunit -c core --testsuite unit --exclude-group Composer,DependencyInjection,PageCache,Setup
+      - ./../vendor/bin/drush
   slack:
     image: plugins/slack
     channel: drone

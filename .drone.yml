@@ -11,7 +11,7 @@ pipeline:
       - lando version
   slack:
     image: plugins/slack
-    channel: neovia
+    channel: @ali.dhibi
     webhook: https://hooks.slack.com/services/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
     when:
       status: [ success, failure ]

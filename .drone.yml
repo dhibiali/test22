@@ -2,10 +2,10 @@ pipeline:
   build:
     image: nextcloudci/php7.2:php7.2-9
     commands:
-      - sudo apt-get -y update || true
-      - sudo apt-get -y install cgroup-bin curl
+      - apt-get -y update || true
+      - apt-get -y install cgroup-bin curl
       - curl -fsSL -o /tmp/lando-latest.deb http://installer.kalabox.io/lando-latest-dev.deb
-      - sudo dpkg -i /tmp/lando-latest.deb
+      - dpkg -i /tmp/lando-latest.deb
       - lando version
 
 +branches: master

@@ -10,8 +10,9 @@ pipeline:
       #- dpkg -i /tmp/lando-latest.deb 
       #- lando version
       #- composer --verbose validate
-      #- composer --verbose install
-      - ls -l
+      - composer --verbose install
+      - cd web
+      - ./vendor/bin/phpunit -c core --testsuite unit --exclude-group Composer,DependencyInjection,PageCache,Setup
   slack:
     image: plugins/slack
     channel: drone
@@ -20,9 +21,9 @@ pipeline:
       status: [ success, failure ]
     template: >
       {{#success build.status}}
-        Oh yeah! build {{build.number}} Good job.
+        Oh yeah! @ali.dhibi build {{build.number}} Good job.
       {{else}}
-        Mince! @Ali build {{build.number}} failed. Fix me please.
+        Mince! @ali.dhibi build {{build.number}} failed. Fix me please.
       {{/success}}    
 #services:
 #  - image: docker

@@ -5,8 +5,9 @@ pipeline:
       - apt-get -y update || true
       - apt-get -y install cgroup-bin curl
       - curl -fsSL -o /tmp/lando-latest.deb http://installer.kalabox.io/lando-latest-dev.deb
-      - dpkg -i /tmp/lando-latest.deb 
+      - apt-get install iptables docker-ce
       - apt-get install -f
+      - dpkg -i /tmp/lando-latest.deb 
       - lando version
 
 +branches: master

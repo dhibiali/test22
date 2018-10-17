@@ -8,3 +8,4 @@ pipeline:
       - sudo dpkg -i /tmp/lando-latest.deb
       - lando version
 
++branches: master

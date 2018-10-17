@@ -1,14 +1,17 @@
 pipeline:
   build:
-    image: plugins/docker
+    image: nextcloudci/php7.2:php7.2-9
     commands:
-      - apt-get -y update || true
-      - apt-get -y install cgroup-bin curl
-      - curl -fsSL -o /tmp/lando-latest.deb http://installer.kalabox.io/lando-latest-dev.deb
-      - apt-get install iptables docker-ce
-      - apt-get install -f
-      - dpkg -i /tmp/lando-latest.deb 
-      - lando version
+      #- apt-get -y update || true
+      #- apt-get -y install cgroup-bin curl
+      #- curl -fsSL -o /tmp/lando-latest.deb http://installer.kalabox.io/lando-latest-dev.deb
+      #- apt-get install iptables docker-ce
+      #- apt-get install -f
+      #- dpkg -i /tmp/lando-latest.deb 
+      #- lando version
+      - composer --verbose validate
+      - composer --verbose install
+      - drupal list
   slack:
     image: plugins/slack
     channel: drone

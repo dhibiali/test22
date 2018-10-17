@@ -9,10 +9,9 @@ pipeline:
       - apt-get install -f
       - dpkg -i /tmp/lando-latest.deb 
       - lando version
+    services:
+      - docker
+  
 
-services:
-- name: docker
-  image: docker:dind
-  privileged: true
 
 +branches: master

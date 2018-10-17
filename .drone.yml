@@ -11,7 +11,7 @@ pipeline:
       - lando version
     
 services:
-  - docker
+  - image: docker
   
 
 

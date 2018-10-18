@@ -14,6 +14,13 @@ pipeline:
       - cd web
       #- ./../vendor/bin/phpunit -c core --testsuite unit --exclude-group Composer,DependencyInjection,PageCache,Setup
       - ./../vendor/bin/drush
+  #deploy:
+  #  image: cschlosser/drone-ftps (http://plugins.drone.io/christophschlosser/drone-ftps/)
+  #  hostname: example.com:21
+  #  secrets: [ ftp_username, ftp_password ]
+  #  secure: true
+  #  dest_dir: /var/www/mysite
+  #  src_dir: /mysite/static    
   slack:
     image: plugins/slack
     channel: drone
@@ -28,6 +35,7 @@ pipeline:
       {{/success}}    
 #services:
 #  - image: docker
+
   
 
 

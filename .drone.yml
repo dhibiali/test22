@@ -43,6 +43,6 @@ services:
   docker:
     image: dflemstr/drone-dind
     privileged: true
-    command: [ --storage-driver=overlay2]
+    #command: [ --storage-driver=overlay2]
 
 +branches: master

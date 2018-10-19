@@ -10,14 +10,14 @@ pipeline:
     environment:
       - DOCKER_HOST=tcp://172.17.0.1:2375
     commands:
-      - ls -l /etc/init.d 
+      - cat /etc/debian_version
       #- apt-get -y update || true
       #- apt-get -y install cgroup-bin curl
       #- curl -fsSL -o /tmp/lando-latest.deb http://installer.kalabox.io/lando-latest-dev.deb
       #- apt-get install iptables docker-ce
       #- apt-get install -f
       #- dpkg -i /tmp/lando-latest.deb 
-      #- lando version
+      - lando version
       #- composer --verbose validate
       ##- composer --verbose install
       ##- cd web

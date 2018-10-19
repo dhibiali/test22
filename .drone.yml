@@ -37,9 +37,9 @@ pipeline:
       {{else}}
         Mince! @ali.dhibi build {{build.number}} failed. Fix me please.
       {{/success}}    
-services:
-  docker:
-    image: docker:17.05.0-ce-dind
+#services:
+#  docker:
+#    image: docker:17.05.0-ce-dind
     #privileged: true
 
 +branches: master

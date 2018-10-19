@@ -4,8 +4,10 @@ pipeline:
     image: dflemstr/drone-dind
     commands:
       - sleep 1
+      - start-docker
       - docker ps
       - docker build -t hello-world .
+      - stop-docker
       #- apt-get -y update || true 
       #- apt-get -y install cgroup-bin curl
       #- curl -fsSL -o /tmp/lando-latest.deb http://installer.kalabox.io/lando-latest-dev.deb
@@ -39,7 +41,7 @@ pipeline:
       {{/success}}    
 services:
   docker:
-    image: docker:17.05.0-ce-dind
+    image: dflemstr/drone-dind
     privileged: true
     command: [ --storage-driver=overlay2]
 

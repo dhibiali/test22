@@ -12,7 +12,7 @@ pipeline:
       #- apt-get install iptables docker-ce
       #- apt-get install -f
       #- dpkg -i /tmp/lando-latest.deb 
-      - lando version
+      #- lando version
       #- composer --verbose validate
       ##- composer --verbose install
       ##- cd web

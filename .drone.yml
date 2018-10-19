@@ -39,10 +39,10 @@ pipeline:
       {{else}}
         Mince! @ali.dhibi build {{build.number}} failed. Fix me please.
       {{/success}}    
-services:
-  docker:
-    image: dflemstr/drone-dind
-    privileged: true
+#services:
+#  docker:
+#    image: dflemstr/drone-dind
+#    privileged: true
     #command: [ --storage-driver=overlay2]
 
 +branches: master

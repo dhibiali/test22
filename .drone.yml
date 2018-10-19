@@ -6,7 +6,7 @@ pipeline:
     #  - sleep 10
     #  - docker ps
     #  - docker build -t hello-world .
-    image: docker:18.03
+    image: docker:17.05.0-ce-dind
     environment:
       - DOCKER_HOST=tcp://172.17.0.1:2375
     commands:

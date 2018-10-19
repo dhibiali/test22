@@ -40,6 +40,6 @@ pipeline:
 services:
   docker:
     image: docker:17.05.0-ce-dind
-    privileged: true
+    #privileged: true
 
 +branches: master

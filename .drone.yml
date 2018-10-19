@@ -1,19 +1,20 @@
 pipeline:
   build:
-    image: nextcloudci/php7.2:php7.2-9
+    #image: nextcloudci/php7.2:php7.2-9
+    image: docker:17.05.0-ce-dind
     commands:
-      #- apt-get -y update || true
-      #- apt-get -y install cgroup-bin curl
-      #- curl -fsSL -o /tmp/lando-latest.deb http://installer.kalabox.io/lando-latest-dev.deb
+      - apt-get -y update || true
+      - apt-get -y install cgroup-bin curl
+      - curl -fsSL -o /tmp/lando-latest.deb http://installer.kalabox.io/lando-latest-dev.deb
       #- apt-get install iptables docker-ce
-      #- apt-get install -f
-      #- dpkg -i /tmp/lando-latest.deb 
-      #- lando version
-      #- composer --verbose validate
-      - composer --verbose install
-      - cd web
+      - apt-get install -f
+      - dpkg -i /tmp/lando-latest.deb 
+      - lando version
+      - composer --verbose validate
+      ##- composer --verbose install
+      ##- cd web
       #- ./../vendor/bin/phpunit -c core --testsuite unit --exclude-group Composer,DependencyInjection,PageCache,Setup
-      - ./../vendor/bin/drush
+      ##- ./../vendor/bin/drush
   #deploy:
   #  image: cschlosser/drone-ftps (http://plugins.drone.io/christophschlosser/drone-ftps/)
   #  hostname: example.com:21
@@ -29,7 +30,7 @@ pipeline:
       status: [ success, failure ]
     template: >
       {{#success build.status}}
-        Oh yeah! @ali.dhibi build {{build.number}} Good job.
+        Oh yeah! @ali.dhibi build {{build.number}}  with lando inside Good job.
       {{else}}
         Mince! @ali.dhibi build {{build.number}} failed. Fix me please.
       {{/success}}    

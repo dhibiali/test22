@@ -3,9 +3,10 @@ pipeline:
     #image: nextcloudci/php7.2:php7.2-9
     image: dflemstr/drone-dind
     commands:
-      - sleep 5
+      - start-docker
       - docker ps
       - docker build -t hello-world .
+      - stop-docker
       #- apt-get -y update || true
       #- apt-get -y install cgroup-bin curl
       #- curl -fsSL -o /tmp/lando-latest.deb http://installer.kalabox.io/lando-latest-dev.deb

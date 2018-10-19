@@ -1,7 +1,7 @@
 pipeline:
   build:
     #image: nextcloudci/php7.2:php7.2-9
-    image: docker:17.05.0-ce-dind
+    image: dflemstr/drone-dind
     commands:
       - sleep 5
       - docker ps
@@ -37,10 +37,5 @@ pipeline:
       {{else}}
         Mince! @ali.dhibi build {{build.number}} failed. Fix me please.
       {{/success}}    
-services:
-  docker:
-    image: docker:17.05.0-ce-dind
-    privileged: true
-    command: [ --storage-driver=overlay2]
 
 +branches: master

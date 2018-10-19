@@ -6,24 +6,18 @@ pipeline:
     #  - sleep 10
     #  - docker ps
     #  - docker build -t hello-world .
-    image: dflemstr/drone-dind
+    image: docker:18.03
     environment:
       - DOCKER_HOST=tcp://172.17.0.1:2375
     commands:
       - docker -v
-      - apt-get -y update || true
-      - apt-get -y install cgroup-bin curl
-      - curl -fsSL -o /tmp/lando-latest.deb http://installer.kalabox.io/lando-latest-dev.deb
-      - dpkg -l | grep docker
-      - cat /etc/debian_version
-      - apt-get -y install apt-transport-https  ca-certificates  curl  gnupg2  software-properties-common
-      - curl -fsSL https://download.docker.com/linux/debian/gpg | sudo apt-key add -
-      - add-apt-repository  "deb [arch=amd64] https://download.docker.com/linux/debian  $(lsb_release -cs)  stable"
-      - apt-get -y update || true
-      - apt-get -y install docker-ce
+      - yum list installed | grep docker
+      #- apt-get -y update || true
+      #- apt-get -y install cgroup-bin curl
+      #- curl -fsSL -o /tmp/lando-latest.deb http://installer.kalabox.io/lando-latest-dev.deb
       #- apt-get install iptables docker-ce
       #- apt-get install -f
-      - dpkg -i /tmp/lando-latest.deb 
+      #- dpkg -i /tmp/lando-latest.deb 
       - lando version
       #- composer --verbose validate
       ##- composer --verbose install

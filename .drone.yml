@@ -13,7 +13,7 @@ pipeline:
     #  - docker ps
     #  - docker build -t hello-world .
   install_lando:  
-    image: nextcloudci/php7.2:php7.2-9
+    image: devwithlando/php:7.1-apache
     #environment:
       #- DOCKER_HOST=tcp://172.17.0.1:2375
     commands:

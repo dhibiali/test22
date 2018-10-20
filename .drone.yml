@@ -25,6 +25,8 @@ pipeline:
       # install docker
       - apt-get -y update || true
       - apt-get -y install cgroup-bin curl
+      - curl -fsSL -o /tmp/docker-ce.deb https://download.docker.com/linux/ubuntu/dists/bionic/pool/stable/amd64/docker-ce_18.06.1~ce~3-0~ubuntu_amd64.deb
+      - dpkg -i /tmp/docker-ce.deb
       - curl -fsSL -o /tmp/lando.deb https://github.com/lando/lando/releases/download/v3.0.0-beta.47/lando-v3.0.0-beta.47.deb
       - dpkg -i /tmp/lando.deb
 

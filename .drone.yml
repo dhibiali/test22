@@ -18,10 +18,14 @@ pipeline:
       #- DOCKER_HOST=tcp://172.17.0.1:2375
     commands:
       #- docker -v
-      - apt-get -y update || true
-      - apt-get -y install cgroup-bin curl
-      - curl -fsSL -o /tmp/lando-latest.deb http://installer.kalabox.io/lando-latest-dev.deb
-      - dpkg -l | grep docker
+      # Install Lando
+      - sudo apt-get -y update
+      - sudo apt-get -y install cgroup-bin curl
+      - curl -fsSL -o /tmp/lando.deb https://github.com/lando/lando/releases/download/v3.0.0-beta.47/lando-v3.0.0-beta.47.deb
+      - sudo dpkg -i /tmp/lando.deb
+
+      # Sanity check to make sure we are rolling
+      - lando version
       - cat /etc/debian_version
       #- apt-get -y install apt-transport-https  ca-certificates  curl  gnupg2  software-properties-common
       #- curl -fsSL https://download.docker.com/linux/debian/gpg | sudo apt-key add -
@@ -30,8 +34,8 @@ pipeline:
       #- apt-get -y install docker-ce
       #- apt-get install iptables docker-ce
       #- apt-get install -f
-      - dpkg -i /tmp/lando-latest.deb 
-      - lando version
+      #- dpkg -i /tmp/lando-latest.deb 
+      #- lando version
       #- composer --verbose validate
       ##- composer --verbose install
       ##- cd web

@@ -20,6 +20,7 @@ pipeline:
       #- docker -v
       # Install Lando
       #- apt-get install sudo
+      - sleep 10
       - apt-get -y update
       - apt-get -y install cgroup-bin curl
       - curl -fsSL -o /tmp/lando.deb https://github.com/lando/lando/releases/download/v3.0.0-beta.47/lando-v3.0.0-beta.47.deb
@@ -61,9 +62,9 @@ pipeline:
       {{else}}
         Mince! @ali.dhibi build {{build.number}} failed. Fix me please.
       {{/success}}    
-#services:
-#  docker:
-#    image: docker:17.05.0-ce-dind
+services:
+  docker:
+    image: docker:latest
 #    privileged: true
 #    command: [ --storage-driver=overlay2]
 

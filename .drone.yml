@@ -23,13 +23,7 @@ pipeline:
       # Install Lando
       #- dpkg -l | grep docker
       # install docker
-      - apt-get install -y apparmor  
-      - curl -s https://get.docker.io/ubuntu/ | sudo sh  
-      - wrapdocker /usr/local/bin/wrapdocker
-      - chmod +x /usr/local/bin/wrapdocker
-      - service docker start
-      - sleep 10
-      - apt-get -y update
+      - apt-get -y update || true
       - apt-get -y install cgroup-bin curl
       - curl -fsSL -o /tmp/lando.deb https://github.com/lando/lando/releases/download/v3.0.0-beta.47/lando-v3.0.0-beta.47.deb
       - dpkg -i /tmp/lando.deb
@@ -70,8 +64,8 @@ pipeline:
       {{else}}
         Mince! @ali.dhibi build {{build.number}} failed. Fix me please.
       {{/success}}    
-#services:
-#  docker:
+services:
+  - docker
 #    image: docker:latest
 #    privileged: true
 #    command: [ --storage-driver=overlay2]

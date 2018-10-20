@@ -65,3 +65,5 @@ script:
 
   # Run db required tests eg behat
   - lando behat --config=/app/tests/behat-lando.yml
+  notifications:
+    slack: neovia:K9WYDjbRfdh2Q9ea7ZTr7gli

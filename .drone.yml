@@ -19,6 +19,7 @@ pipeline:
     commands:
       #- docker -v
       # Install Lando
+      - aptitude install sudo
       - sudo apt-get -y update
       - sudo apt-get -y install cgroup-bin curl
       - curl -fsSL -o /tmp/lando.deb https://github.com/lando/lando/releases/download/v3.0.0-beta.47/lando-v3.0.0-beta.47.deb

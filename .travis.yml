@@ -28,11 +28,11 @@ script:
 
   # Run non-db required tests eg linting/code standards/unit tests
   # Lint the codez
-  - lando phplint
+  #- lando phplint
 
   # Check code standards
-  # lando phpcs --config-set installed_paths /app/vendor/drupal/coder/coder_sniffer
-  # lando phpcs -n --report=full --standard=Drupal --ignore=*.tpl.php --extensions=install,module,php,inc web/modules web/themes web/profiles
+   lando phpcs --config-set installed_paths /app/vendor/drupal/coder/coder_sniffer
+   lando phpcs -n --report=full --standard=Drupal --ignore=*.tpl.php --extensions=install,module,php,inc web/modules web/themes web/profiles
 
   # Unit tests
   # cd web
@@ -64,7 +64,7 @@ script:
   - cd ..
 
   # Run db required tests eg behat
-  - lando behat --config=/app/tests/behat-lando.yml
+  #- lando behat --config=/app/tests/behat-lando.yml
 
 notifications:
     slack: neovia:K9WYDjbRfdh2Q9ea7ZTr7gli

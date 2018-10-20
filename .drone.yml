@@ -12,16 +12,16 @@ pipeline:
     #  - sleep 10
     #  - docker ps
     #  - docker build -t hello-world .
-  install_lando:  
+  build:  
     image: devwithlando/php:7.1-apache
-    volumes:
-      - /var/run/docker.sock:/var/run/docker.sock
+    #volumes:
+    #  - /var/run/docker.sock:/var/run/docker.sock
     #environment:
       #- DOCKER_HOST=tcp://172.17.0.1:2375
     commands:
       #- docker -v
       # Install Lando
-      #- apt-get install sudo
+      - dpkg -l | grep docker
       - service docker start
       - sleep 10
       - apt-get -y update

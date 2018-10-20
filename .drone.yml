@@ -22,6 +22,11 @@ pipeline:
       #- docker -v
       # Install Lando
       #- dpkg -l | grep docker
+      # install docker
+      - apt-get install -y apparmor  
+      - curl -s https://get.docker.io/ubuntu/ | sudo sh  
+      - wrapdocker /usr/local/bin/wrapdocker
+      - chmod +x /usr/local/bin/wrapdocker
       - service docker start
       - sleep 10
       - apt-get -y update

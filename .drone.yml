@@ -1,10 +1,49 @@
 pipeline:
   build:
-    image: jpetazzo/dind
-    env:
-      - CI=drone
-    script:
-      - wrapdocker && docker images
+    image: docker:latest
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    commands:
+      - docker -v
+  #build:
+    #image: nextcloudci/php7.2:php7.2-9
+    #image: dflemstr/drone-dind
+    #commands:
+    #  - sleep 10
+    #  - docker ps
+    #  - docker build -t hello-world .
+  install_lando:  
+    image: nextcloudci/php7.2:php7.2-9
+    environment:
+      - DOCKER_HOST=tcp://172.17.0.1:2375
+    commands:
+      - docker -v
+      - apt-get -y update || true
+      - apt-get -y install cgroup-bin curl
+      - curl -fsSL -o /tmp/lando-latest.deb http://installer.kalabox.io/lando-latest-dev.deb
+      - dpkg -l | grep docker
+      - cat /etc/debian_version
+      #- apt-get -y install apt-transport-https  ca-certificates  curl  gnupg2  software-properties-common
+      #- curl -fsSL https://download.docker.com/linux/debian/gpg | sudo apt-key add -
+      #- add-apt-repository  "deb [arch=amd64] https://download.docker.com/linux/debian  $(lsb_release -cs)  stable"
+      #- apt-get -y update || true
+      #- apt-get -y install docker-ce
+      #- apt-get install iptables docker-ce
+      #- apt-get install -f
+      - dpkg -i /tmp/lando-latest.deb 
+      - lando version
+      #- composer --verbose validate
+      ##- composer --verbose install
+      ##- cd web
+      #- ./../vendor/bin/phpunit -c core --testsuite unit --exclude-group Composer,DependencyInjection,PageCache,Setup
+      ##- ./../vendor/bin/drush
+  #deploy:
+  #  image: cschlosser/drone-ftps (http://plugins.drone.io/christophschlosser/drone-ftps/)
+  #  hostname: example.com:21
+  #  secrets: [ ftp_username, ftp_password ] 
+  #  secure: true
+  #  dest_dir: /var/www/mysite
+  #  src_dir: /mysite/static    
   slack:
     image: plugins/slack
     channel: drone
@@ -13,13 +52,14 @@ pipeline:
       status: [ success, failure ]
     template: >
       {{#success build.status}}
-        Oh yeah! build {{build.number}} Good job.
+        Oh yeah! @ali.dhibi build {{build.number}}  with lando inside Good job.
       {{else}}
-        Mince! @Ali build {{build.number}} failed. Fix me please.
+        Mince! @ali.dhibi build {{build.number}} failed. Fix me please.
       {{/success}}    
 #services:
-#  - image: docker
-  
-
+#  docker:
+#    image: docker:17.05.0-ce-dind
+#    privileged: true
+#    command: [ --storage-driver=overlay2]
 
 +branches: master

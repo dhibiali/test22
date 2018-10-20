@@ -21,7 +21,7 @@ pipeline:
     commands:
       #- docker -v
       # Install Lando
-      - dpkg -l | grep docker
+      #- dpkg -l | grep docker
       - service docker start
       - sleep 10
       - apt-get -y update

@@ -2,7 +2,7 @@ language: php
 
 # This can be set to whatever you want since Lando is taking care of your deps
 php:
-  - 7.1
+  #- 7.1
   - 7.2
 
 services:
@@ -65,5 +65,6 @@ script:
 
   # Run db required tests eg behat
   - lando behat --config=/app/tests/behat-lando.yml
-  notifications:
+
+notifications:
     slack: neovia:K9WYDjbRfdh2Q9ea7ZTr7gli

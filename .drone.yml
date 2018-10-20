@@ -1,36 +1,18 @@
 pipeline:
   build:
-    #image: nextcloudci/php7.2:php7.2-9
-    #image: dflemstr/drone-dind
-    #commands:
-    #  - sleep 10
-    #  - docker ps
-    #  - docker build -t hello-world .
-    image: docker:17.05.0-ce-dind
-    environment:
-      - DOCKER_HOST=tcp://172.17.0.1:2375
+    image: plugins/docker
     commands:
       - docker -v
-      - cat /proc/version
       #- apt-get -y update || true
       #- apt-get -y install cgroup-bin curl
       #- curl -fsSL -o /tmp/lando-latest.deb http://installer.kalabox.io/lando-latest-dev.deb
       #- apt-get install iptables docker-ce
       #- apt-get install -f
       #- dpkg -i /tmp/lando-latest.deb 
-      - lando version
-      #- composer --verbose validate
-      ##- composer --verbose install
-      ##- cd web
-      #- ./../vendor/bin/phpunit -c core --testsuite unit --exclude-group Composer,DependencyInjection,PageCache,Setup
-      ##- ./../vendor/bin/drush
-  #deploy:
-  #  image: cschlosser/drone-ftps (http://plugins.drone.io/christophschlosser/drone-ftps/)
-  #  hostname: example.com:21
-  #  secrets: [ ftp_username, ftp_password ] 
-  #  secure: true
-  #  dest_dir: /var/www/mysite
-  #  src_dir: /mysite/static    
+      #- lando version
+      - composer --verbose validate
+      - composer --verbose install
+      - drupal list
   slack:
     image: plugins/slack
     channel: drone
@@ -39,14 +21,13 @@ pipeline:
       status: [ success, failure ]
     template: >
       {{#success build.status}}
-        Oh yeah! @ali.dhibi build {{build.number}}  with lando inside Good job.
+        Oh yeah! build {{build.number}} Good job.
       {{else}}
-        Mince! @ali.dhibi build {{build.number}} failed. Fix me please.
+        Mince! @Ali build {{build.number}} failed. Fix me please.
       {{/success}}    
 #services:
-#  docker:
-#    image: docker:17.05.0-ce-dind
-#    privileged: true
-#    command: [ --storage-driver=overlay2]
+#  - image: docker
+  
+
 
 +branches: master

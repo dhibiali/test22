@@ -65,9 +65,9 @@ pipeline:
       {{else}}
         Mince! @ali.dhibi build {{build.number}} failed. Fix me please.
       {{/success}}    
-services:
-  docker:
-    image: docker:latest
+#services:
+#  docker:
+#    image: docker:latest
 #    privileged: true
 #    command: [ --storage-driver=overlay2]
 

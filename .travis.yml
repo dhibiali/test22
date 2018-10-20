@@ -31,8 +31,8 @@ script:
   #- lando phplint
 
   # Check code standards
-   lando phpcs --config-set installed_paths /app/vendor/drupal/coder/coder_sniffer
-   lando phpcs -n --report=full --standard=Drupal --ignore=*.tpl.php --extensions=install,module,php,inc web/modules web/themes web/profiles
+  #- lando phpcs --config-set installed_paths /app/vendor/drupal/coder/coder_sniffer
+  #- lando phpcs -n --report=full --standard=Drupal --ignore=*.tpl.php --extensions=install,module,php,inc web/modules web/themes web/profiles
 
   # Unit tests
   # cd web
@@ -61,7 +61,7 @@ script:
   # Check to see if we succeeded
   - cd web
   - lando drush status && lando drush cr
-  - cd ..
+  #- cd ..
 
   # Run db required tests eg behat
   #- lando behat --config=/app/tests/behat-lando.yml

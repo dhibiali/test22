@@ -20,6 +20,7 @@ pipeline:
       #- docker -v
       # Install Lando
       #- apt-get install sudo
+      - service docker start
       - sleep 10
       - apt-get -y update
       - apt-get -y install cgroup-bin curl

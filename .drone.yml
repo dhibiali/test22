@@ -1,18 +1,10 @@
 pipeline:
   build:
-    image: plugins/docker
-    commands:
-      - docker -v
-      #- apt-get -y update || true
-      #- apt-get -y install cgroup-bin curl
-      #- curl -fsSL -o /tmp/lando-latest.deb http://installer.kalabox.io/lando-latest-dev.deb
-      #- apt-get install iptables docker-ce
-      #- apt-get install -f
-      #- dpkg -i /tmp/lando-latest.deb 
-      #- lando version
-      #- composer --verbose validate
-      #- composer --verbose install
-      #- drupal list
+    image: jpetazzo/dind
+    env:
+      - CI=drone
+    script:
+      - wrapdocker && docker images
   slack:
     image: plugins/slack
     channel: drone

@@ -66,7 +66,7 @@ pipeline:
       {{/success}}    
 services:
   docker:
-#    image: docker:latest
+    image: docker
 #    privileged: true
 #    command: [ --storage-driver=overlay2]
 
